@@ -44,7 +44,7 @@ init( [Pools, Bouncers] ) ->
 			fun({BouncerName, BouncerArgs}) ->
 					FinalArgs = [{name, BouncerName}] ++ BouncerArgs,
 					{
-						BouncerName, {fevents_bouncer, start_link, FinalArgs},
+						BouncerName, {fevents_bouncer, start_link, [FinalArgs]},
 						BouncerRestartType, BouncerShutdown_T, worker, [fevents_bouncer]
 					}
 			end,
@@ -53,3 +53,7 @@ init( [Pools, Bouncers] ) ->
 					
 	ChildSpecs = PoolSpecs ++ BouncerSpecs,
 	{ok, {SupFlags, ChildSpecs}}.
+
+
+
+

@@ -12,7 +12,8 @@
 		pool_name :: atom(),
 		event_type = undefined,
 		node_counter :: node_counter(),
-		node_indexer :: node_indexer()
+		node_indexer :: node_indexer(),
+		zset_name :: string()
 }).
 			
 
@@ -36,9 +37,13 @@ init( [Args] ) ->
 	{Mod2,Fun2} = proplists:get_value( nodeindex_function, Args ),
 	NodeIndexer = {Mod2,Fun2},
 
+	ZSetName = proplists:get_value( zset_name, Args ),
+	true = is_list(ZSetName) andalso (length(ZSetName) > 0),
+
 	{ok, #bouncer_state{
 			name = Name, pool_name = PoolName, event_type = EventType,
-			node_counter = NodeCounter, node_indexer = NodeIndexer 
+			node_counter = NodeCounter, node_indexer = NodeIndexer,
+			zset_name = ZSetName
 	}}.
 
 

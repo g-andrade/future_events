@@ -41,7 +41,8 @@
 								{pool_name, fevents_user_pool},
 								{event_type, wallet_timeout},
 								{nodecount_function, {server_db, node_count}},
-								{nodeindex_function, {server_db, node_index}}
+								{nodeindex_function, {server_db, node_index}},
+								{zset_name, "wallet_timeouts"}
 						]}
 				]}
 		]}
