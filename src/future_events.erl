@@ -12,7 +12,7 @@
 
 start( _, _ ) ->
 	{ok, Pools} = application:get_env( poolboy ),
-	superisor:start_link( {local, ?MODULE}, ?MODULE, [Pools] ).
+	supervisor:start_link( {local, ?MODULE}, ?MODULE, [Pools] ).
 
 
 stop( _ ) ->
