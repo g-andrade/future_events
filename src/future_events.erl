@@ -10,6 +10,8 @@
 -include("include/future_events.hrl").
 
 
+
+
 start( _, _ ) ->
 	{ok, Pools} = application:get_env( poolboy ),
 	{ok, Bouncers} = application:get_env( bouncers ),
@@ -50,7 +52,7 @@ init( [Pools, Bouncers] ) ->
 			end,
 			Bouncers
 	),
-					
+				
 	ChildSpecs = PoolSpecs ++ BouncerSpecs,
 	{ok, {SupFlags, ChildSpecs}}.
 
