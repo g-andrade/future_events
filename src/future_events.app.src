@@ -1,0 +1,21 @@
+% vim: ft=erlang
+{application, future_events, [
+		{description, ""},
+		{vsn, git},
+		{registered, []},
+		{applications, [
+				kernel,
+				stdlib,
+				crypto,
+				public_key,
+				ssl,
+				inets,
+				poolboy,
+				eredis
+		]},
+		{mod, {future_events, []}},
+		{env, [
+				{poolboy, [
+				]}
+		]}
+]}.
