@@ -15,14 +15,13 @@
 	redis_port :: pos_integer()
 }).
 
-q(Pool, Query) ->
-	poolboy:transaction(Pool, 
+q(PoolName, Query) ->
+	poolboy:transaction(PoolName, 
 		fun(Worker) ->
-			lager:debug( "wth?" ),
 			gen_server:call(Worker, {q, Query}) 
 		end).
-qp(Pool, Queries) ->
-	poolboy:transaction(Pool, 
+qp(PoolName, Queries) ->
+	poolboy:transaction(PoolName, 
 		fun(Worker) -> 
 			gen_server:call(Worker, {qp, Queries}) 
 		end).
@@ -32,7 +31,6 @@ start_link(Args) ->
 
 init([Args]) ->
 	process_flag(trap_exit, true), 
-	lager:debug( "yea, initialized.. ~p", [Args] ),
 	{ok, #context{
 		redis_server = proplists:get_value(host, Args),
 		redis_port = proplists:get_value(port, Args)
@@ -46,9 +44,7 @@ get_connection(C) when C#context.redis_context == undefined ->
 get_connection(C) -> C. 
 
 handle_call({q, Query}, _From, State) -> 
-	lager:debug( "trying to get a connection..." ),
 	S = get_connection(State),
-	lager:debug( "got a connection: ~p", [S] ),
 	{Reply, NewState} =
 		case S#context.redis_context of
 			undefined -> {{error, {redis_error, connect_failed}}, S};

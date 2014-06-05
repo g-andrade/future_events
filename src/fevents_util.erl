@@ -1,10 +1,16 @@
 -module(fevents_util).
 
 -export([
+	unix_timestamp/0, unix_timestamp_ms/0,
+	rand_uint16/0,
 	new_promise/0, keep_promise/2, wait_for_promise/3, wait_for_promise/5
 ]).
 
 
+
+unix_timestamp() ->
+	{Msec, Sec, _} = os:timestamp(),
+	Msec * 1000000 + Sec.
 
 unix_timestamp_ms() ->
 	{A, B, C} = os:timestamp(),
@@ -16,7 +22,7 @@ rand_uint16() ->
 	rand_uint( 2 ).
 
 rand_uint( ByteCount ) ->
-	binary:decode_unsigned( rand_bin(ByteCount), big ).
+	binary:decode_unsigned( rand_bin(ByteCount), little ).
 
 rand_bin( ByteCount ) ->
 	crypto:rand_bytes( ByteCount ).

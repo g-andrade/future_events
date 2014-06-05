@@ -38,7 +38,7 @@
 
 				{bouncers, [
 						{wallet_timeouts, [
-								{pool_name, fevents_user_pool},
+								{pool_name,  fevents_user_pool},
 								{event_type, wallet_timeout},
 								{nodecount_function, {server_db, node_count}},
 								{nodeindex_function, {server_db, node_index}},

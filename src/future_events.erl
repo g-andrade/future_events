@@ -1,16 +1,35 @@
 -module(future_events).
 
 -behaviour(application).
--export([ start/2, stop/1 ]).
+-export([start/2, stop/1]).
 
 -behaviour(supervisor).
--export([ init/1 ]).
+-export([init/1]).
+
+
+-export([
+	schedule/3, cancel/2
+]).
 
 
 -include("include/future_events.hrl").
 
 
 
+schedule( BouncerName, T_Deadline, ObjId ) when is_atom(BouncerName) ->
+	% Ergh. Think of a better way later.
+	ZSetName = gen_server:call( whereis(BouncerName), {get_prop, zset_name} ),
+	fevents_worker:async_schedule( ZSetName, T_Deadline, ObjId ). 
+
+
+cancel( BouncerName, ObjId ) when is_atom(BouncerName) ->
+	% Ergh. Think of a better way later.
+	ZSetName = gen_server:call( whereis(BouncerName), {get_prop, zset_name} ),
+	fevents_worker:async_cancel( ZSetName, ObjId ).
+
+
+
+%=====================================================================%
 
 start( _, _ ) ->
 	{ok, Pools} = application:get_env( poolboy ),
