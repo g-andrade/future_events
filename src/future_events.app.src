@@ -16,6 +16,33 @@
 		{mod, {future_events, []}},
 		{env, [
 				{poolboy, [
+						{fevents_redis_pool, 
+							[
+								{size, 20},
+								{max_overflow, 10},
+								{worker_module, fevents_redis_worker}
+							], [
+								{host, "127.0.0.1"}, {port, 6379}	
+							]
+						},
+						{fevents_user_pool, 
+							[
+								{size, 20},
+								{max_overflow, 10},
+								{worker_module, fevents_worker}
+							], [
+								{event_handler, {user_logic, handle_fevent}}
+							]
+						}
+				]},
+
+				{bouncers, [
+						{wallet_timeouts, [
+								{pool_name, fevents_user_pool},
+								{event_type, wallet_timeout},
+								{nodecount_function, {server_db, node_count}},
+								{nodeindex_function, {server_db, node_index}}
+						]}
 				]}
 		]}
 ]}.
