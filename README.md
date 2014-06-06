@@ -1,7 +1,7 @@
 future_events
 =============
 
-Using Redis' ZSET to implement long-lived timeout events.
+Using Redis' ZSET to implement long-lived timeout events. Functional but still requiring some work (and thinking).
 
 ---------------------------------------------------------
 
