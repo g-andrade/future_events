@@ -1,7 +1,7 @@
 future_events
 =============
 
-Using Redis' <a href="http://redis.io/commands/ZRANGEBYSCORE">ZSET</a> to implement long-lived timeout events. Functional but still requiring some work (and thinking).
+Using Redis' <a href="http://redis.io/commands/ZRANGEBYSCORE" target="_blank">ZSET</a> to implement long-lived timeout events. Functional but still requiring some work (and thinking).
 
 ---------------------------------------------------------
 
