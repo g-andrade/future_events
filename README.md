@@ -6,7 +6,7 @@ Using Redis' ZSET to implement long timeouts.
 
 ---------------------------------------------------------
 
-Using with reltool / rebar:
+reltool / rebar:
 
 	{future_events, [
 				{poolboy, [
@@ -19,25 +19,25 @@ Using with reltool / rebar:
 								{host, "127.0.0.1"}, {port, 6379}	
 							]
 						},
-%						{fevents_someentity_pool, 
-%							[
-%								{size, 20},
-%								{max_overflow, 10},
-%								{worker_module, fevents_worker}
-%							], [
-%								{event_handler, {your_own_module, your_own_function}} % fun/3 [EventType, T_Scheduled, ObjId]
-%							]
-%						}
+	%					{fevents_someentity_pool, 
+	%						[
+	%							{size, 20},
+	% 							{max_overflow, 10},
+	% 							{worker_module, fevents_worker}
+	% 						], [
+	% 							{event_handler, {your_own_module, your_own_function}} % fun/3 [EventType, T_Scheduled, ObjId]
+	% 						]
+	% 					}
 				]},
 
 				{bouncers, [
-%						{someentity_timeouts, [
-%								{pool_name,  fevents_someentity_pool},
-%								{event_type, someentity_specific_kind_of_timeout},
-%								{nodecount_function, {your_own_module, your_own_function}}, % fun/0 -> number of nodes in cluster
-%								{nodeindex_function, {your_own_module, your_own_function}}, % fun/0 -> unique index for this node in cluster (0 based)
-%								{zset_name, "someentity_timeouts"}
-%						]}
+	% 					{someentity_timeouts, [
+	% 							{pool_name,  fevents_someentity_pool},
+	% 							{event_type, someentity_specific_kind_of_timeout},
+	% 							{nodecount_function, {your_own_module, your_own_function}}, % fun/0 -> number of nodes in cluster
+	% 							{nodeindex_function, {your_own_module, your_own_function}}, % fun/0 -> unique index for this node in cluster (0 based)
+	% 							{zset_name, "someentity_timeouts"}
+	% 					]}
 				]}
 	]}
 
