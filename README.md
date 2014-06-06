@@ -1,8 +1,12 @@
 future_events
 =============
 
-Using Redis' ZSET to implement long timeouts.
+Using Redis' ZSET to implement long-lived timeout events.
 
+---------------------------------------------------------
+
+	future_events:schedule/3 [BouncerName :: atom(), T_Deadline :: non_neg_integer(), ObjId :: binary() | string()]
+	future_events:cancel/2 [BouncerName : atom(), ObjId :: binary() | string()]
 
 ---------------------------------------------------------
 
