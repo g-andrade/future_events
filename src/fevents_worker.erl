@@ -96,6 +96,10 @@ handle_cast( {new_event, EventType, {T_Scheduled, ObjId}, ZSetName, Promise}, St
 			ok = cancel( ZSetName, ObjId ),
 			lager:debug( "Consumed ~p/~p", [ZSetName, ObjId] ),
 			ok;
+		{ok, New_T_Deadline} ->
+			ok = schedule( ZSetName, New_T_Deadline, ObjId ),
+			lager:debug( "Rescheduled ~p/~p for ~p", [ZSetName, ObjId, New_T_Deadline] ),
+			ok;
 		{error, Why} ->
 			lager:warning( "Failed to consume ~p/~p: ~p", [ZSetName, ObjId, Why] ),
 			New_T_Deadline = fevents_util:unix_timestamp() + ?DEFAULT_RESCHEDULE_DIFF,
