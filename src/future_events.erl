@@ -8,7 +8,8 @@
 
 
 -export([
-	schedule/3, cancel/2
+	schedule/3, schedule_by_zset/3,
+	cancel/2, cancel_by_zset/2
 ]).
 
 
@@ -16,15 +17,24 @@
 
 
 
+% Ergh. Think of a better way later.
+%
 schedule( BouncerName, T_Deadline, ObjId ) when is_atom(BouncerName) ->
-	% Ergh. Think of a better way later.
 	ZSetName = gen_server:call( whereis(BouncerName), {get_prop, zset_name} ),
+	schedule_by_zset( ZSetName, T_Deadline, ObjId ).
+
+schedule_by_zset( ZSetName, T_Deadline, ObjId ) when is_list(ZSetName) ->
 	fevents_worker:async_schedule( ZSetName, T_Deadline, ObjId ). 
 
 
+
+% Ergh. Think of a better way later.
+%
 cancel( BouncerName, ObjId ) when is_atom(BouncerName) ->
-	% Ergh. Think of a better way later.
 	ZSetName = gen_server:call( whereis(BouncerName), {get_prop, zset_name} ),
+	cancel_by_zset( ZSetName, ObjId ).
+
+cancel_by_zset( ZSetName, ObjId ) when is_list(ZSetName) ->
 	fevents_worker:async_cancel( ZSetName, ObjId ).
 
 
